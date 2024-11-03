@@ -8,7 +8,6 @@ import (
 	"strconv"
 )
 
-// Get Users (GORM)
 func GetUsersGORM(w http.ResponseWriter, r *http.Request) {
 	ageFilter := r.URL.Query().Get("age")
 	sortBy := r.URL.Query().Get("sortBy")
@@ -42,7 +41,6 @@ func GetUsersGORM(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(users)
 }
 
-// Create RestUser (GORM)
 func CreateUserGORM(w http.ResponseWriter, r *http.Request) {
 	var user models.RestUser
 	err := json.NewDecoder(r.Body).Decode(&user)
@@ -60,7 +58,6 @@ func CreateUserGORM(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(user)
 }
 
-// Update RestUser (GORM)
 func UpdateUserGORM(w http.ResponseWriter, r *http.Request) {
 	id := mux.Vars(r)["id"]
 
@@ -86,7 +83,6 @@ func UpdateUserGORM(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(existingUser)
 }
 
-// Delete RestUser (GORM)
 func DeleteUserGORM(w http.ResponseWriter, r *http.Request) {
 	id := mux.Vars(r)["id"]
 
