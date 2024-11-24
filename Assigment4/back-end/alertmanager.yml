@@ -1,0 +1,18 @@
+global:
+  resolve_timeout: 5m
+
+route:
+  receiver: "default"
+  group_by: ["alertname"]
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 1h
+
+receivers:
+  - name: "default"
+    email_configs:
+      - to: "mrdnigel@gmail.com"
+        from: "San4au5@yandex.ru"
+        smarthost: "smtp.yandex.ru:465"
+        auth_username: "San4au5@yandex.ru"
+        auth_password: "vdnxccqxyuamlkvz"
