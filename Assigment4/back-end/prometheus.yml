@@ -5,10 +5,10 @@ alerting:
   alertmanagers:
     - static_configs:
         - targets:
-            - "alertmanager:9093"  # Address of Alertmanager
+            - "alertmanager:9093"
 
 rule_files:
-  - "alerts.yml"  # Load alert rules from this file
+  - "alerts.yml"  #
 
 scrape_configs:
   - job_name: "go_app"

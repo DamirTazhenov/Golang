@@ -37,7 +37,7 @@ func main() {
 
 	CSRF := csrf.Protect(
 		[]byte(configData.CSRFSecret),
-		csrf.Secure(false), // Change to true in production to use HTTPS
+		csrf.Secure(false),
 		csrf.Path("/submit"),
 	)
 

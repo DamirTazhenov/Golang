@@ -68,11 +68,11 @@ func init() {
 	//l.SetOutput(io.Discard)
 
 	logrus.SetOutput(&lumberjack.Logger{
-		Filename:   "./logs/app.log", // Path to log file
-		MaxSize:    10,               // Max megabytes before rotation
-		MaxBackups: 5,                // Max number of old log files to keep
-		MaxAge:     30,               // Max number of days to retain old files
-		Compress:   true,             // Compress rotated log files
+		Filename:   "./logs/app.log",
+		MaxSize:    10,
+		MaxBackups: 5,
+		MaxAge:     30,
+		Compress:   true,
 	})
 
 	logrus.SetFormatter(&logrus.JSONFormatter{})

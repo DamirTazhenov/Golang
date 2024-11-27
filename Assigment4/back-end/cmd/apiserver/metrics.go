@@ -5,7 +5,6 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 )
 
-// Metrics
 var (
 	requestCount = prometheus.NewCounterVec(
 		prometheus.CounterOpts{

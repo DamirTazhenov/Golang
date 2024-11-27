@@ -22,15 +22,12 @@ func (rw *responseWriter) WriteHeader(statusCode int) {
 
 func SecurityHeadersMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// Set security headers
 		w.Header().Set("Content-Security-Policy", "default-src 'self'; script-src 'self'")
 		w.Header().Set("X-Frame-Options", "DENY")
 		w.Header().Set("X-Content-Type-Options", "nosniff")
 		w.Header().Set("Referrer-Policy", "no-referrer")
 		w.Header().Set("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
 		w.Header().Set("X-XSS-Protection", "1; mode=block")
-
-		//logger.WithField("path", r.URL.Path).Info("Applied security headers")
 
 		next.ServeHTTP(w, r)
 	})
@@ -53,7 +50,6 @@ func TeamRoleMiddleware(requiredRoles ...string) func(http.Handler) http.Handler
 				return
 			}
 
-			// Check user's role in the team
 			hasRole, err := CheckTeamRole(uint(teamID), userID, requiredRoles...)
 			if err != nil {
 				logger.WithFields(logrus.Fields{
@@ -80,7 +76,6 @@ func TeamRoleMiddleware(requiredRoles ...string) func(http.Handler) http.Handler
 				"roles_checked": requiredRoles,
 			}).Info("User authorized for team action")
 
-			// Proceed to the next handler
 			next.ServeHTTP(w, r)
 		})
 	}
@@ -113,7 +108,6 @@ func ModeMiddleware(nextIndividual, nextTeam http.HandlerFunc) http.HandlerFunc 
 			return
 		}
 
-		// Fetch user from the database
 		var user models.User
 		if err := DB.First(&user, userID).Error; err != nil {
 			logger.WithField("user_id", userID).WithError(err).Warn("User not found")
@@ -121,7 +115,6 @@ func ModeMiddleware(nextIndividual, nextTeam http.HandlerFunc) http.HandlerFunc 
 			return
 		}
 
-		// Direct request based on mode
 		if user.Mode == "individual" {
 			logger.WithField("user_id", userID).Info("User operating in individual mode")
 			nextIndividual(w, r)
@@ -139,15 +132,12 @@ func MetricsMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()
 
-		// Wrap ResponseWriter to capture status code
 		ww := &responseWriter{ResponseWriter: w, statusCode: http.StatusOK}
 
-		// Call the next handler
 		next.ServeHTTP(ww, r)
 
 		duration := time.Since(start).Seconds()
 
-		// Record metrics
 		requestCount.WithLabelValues(r.Method, r.URL.Path, http.StatusText(ww.statusCode)).Inc()
 		responseDuration.WithLabelValues(r.Method, r.URL.Path).Observe(duration)
 	})
