@@ -1,0 +1,58 @@
+/* Центрирование контейнера формы */
+form {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для заголовка */
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Стили для полей ввода */
+input {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    background-color: #fff;
+    transition: border 0.3s ease;
+}
+
+/* Эффект при наведении на поле ввода */
+input:focus {
+    border-color: #4c59af;
+    outline: none;
+}
+
+/* Стили для кнопки входа */
+button {
+    width: 100%;
+    padding: 12px 15px;
+    background-color: #4c68af;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Эффект при наведении на кнопку */
+button:hover {
+    background-color: #4554a0;
+}
+
+/* Контейнер для уведомлений Toast */
+.Toastify__toast-container {
+    font-size: 14px;
+}
